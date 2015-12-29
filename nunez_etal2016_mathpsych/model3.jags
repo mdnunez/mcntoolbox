@@ -1,0 +1,108 @@
+## Citation
+# Nunez M.D., Vandekerchove, J., Srinivasan, R. (2016) How attention influences perceptual decision making: Single-trial EEG correlates of drift-diffusion model parameters. Journal of Mathematical Psychology.
+
+## Copyright 2015 Michael D. Nunez
+
+#This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+model {
+# No effect on b (bias between responses)
+# b <- .5
+# Boundary separation kept constant
+# a <- 1
+
+# 1 unit increase of eegfield{f} is associated with this additive effect on t
+for (f in 1:4) {
+tbetasd[f] ~ dgamma(5, .2)
+tbetatau[f] <- pow(tbetasd[f], -2)
+   for (c2 in 1:3) {
+      tbetamu[c2,f] ~ dnorm(0,.0001)
+      for (sub in 1:nsubs) {
+         tbeta[c2,sub,f] ~ dnorm(tbetamu[c2,f],tbetatau[f])
+      }
+    }
+}
+
+# Effect on Ter (non-decision time)
+# Varies by subject
+tsd ~ dgamma(5, .2)
+ttau <- pow(tsd, -2)
+for (c2 in 1:3) {
+   tmu[c2] ~ dnorm(0,.0001)
+   for (sub in 1:nsubs) {
+      talpha[c2,sub] ~ dnorm(tmu[c2], ttau)
+   }
+}
+
+# 1 unit increase of eegfield{f} is associated with this additive effect on s
+for (f in 1:4) {
+sbetasd[f] ~ dgamma(5, .2)
+sbetatau[f] <- pow(sbetasd[f], -2)
+   for (c2 in 1:3) {
+      sbetamu[c2,f] ~ dnorm(0,.0001)
+      for (sub in 1:nsubs) {
+         sbeta[c2,sub,f] ~ dnorm(sbetamu[c2,f],sbetatau[f])
+      }
+    }
+}
+
+# Effect on s (diffusion coefficient)
+# Varies by subject
+ssd ~ dgamma(5, .2)
+stau <- pow(ssd, -2)
+for (c2 in 1:3) {
+   smu[c2] ~ dnorm(0,.0001)
+   for (sub in 1:nsubs) {
+      salpha[c2,sub] ~ dnorm(smu[c2], stau)
+   }
+}
+
+# 1 unit increase of eegfield{f} is associated with this additive effect on v
+for (f in 1:4) {
+vbetasd[f] ~ dgamma(5, .2)
+vbetatau[f] <- pow(vbetasd[f], -2)
+   for (c2 in 1:3) {
+      vbetamu[c2,f] ~ dnorm(0,.0001)
+      for (sub in 1:nsubs) {
+         vbeta[c2,sub,f] ~ dnorm(vbetamu[c2,f],vbetatau[f])
+      }
+    }
+}
+
+# Effect on v (diffusion process between trials)
+# Varies by condition and subject
+vsd ~ dgamma(5, .2)
+vtau <- pow(vsd, -2)
+for (c2 in 1:3) {
+   vmu[c2] ~ dnorm(0,.0001)
+   for (sub in 1:nsubs) {
+       valpha[c2,sub] ~ dnorm(vmu[c2], vtau)
+   }
+}
+
+# Likelihood
+for (i in 1:n)
+{
+
+v[i] <- valpha[noise[i],subject[i]] + p200trialerpc1n[i]*vbeta[noise[i],subject[i],1] + p200trialerplatc1n[i]*vbeta[noise[i],subject[i],2] + n200trialerpc1r[i]*vbeta[noise[i],subject[i],3] + n200trialerplatc1r[i]*vbeta[noise[i],subject[i],4]
+
+
+t[i] <- talpha[noise[i],subject[i]] + p200trialerpc1n[i]*tbeta[noise[i],subject[i],1] + p200trialerplatc1n[i]*tbeta[noise[i],subject[i],2] + n200trialerpc1r[i]*tbeta[noise[i],subject[i],3] + n200trialerplatc1r[i]*tbeta[noise[i],subject[i],4]
+
+
+s[i] <- salpha[noise[i],subject[i]] + p200trialerpc1n[i]*sbeta[noise[i],subject[i],1] + p200trialerplatc1n[i]*sbeta[noise[i],subject[i],2] + n200trialerpc1r[i]*sbeta[noise[i],subject[i],3] + n200trialerplatc1r[i]*sbeta[noise[i],subject[i],4]
+
+    y[i] ~ dwiener(1/s[i], t[i], 0.5, v[i]/s[i])
+}
+}

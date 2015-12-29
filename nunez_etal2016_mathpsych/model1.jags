@@ -1,0 +1,64 @@
+## Citation
+# Nunez M.D., Vandekerchove, J., Srinivasan, R. (2016) How attention influences perceptual decision making: Single-trial EEG correlates of drift-diffusion model parameters. Journal of Mathematical Psychology.
+
+## Copyright 2015 Michael D. Nunez
+
+#This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+model {
+# No effect on b (bias between responses)
+# b <- .5
+# Boundary separation kept constant
+# a <- 1
+
+# Effect on T_er (preprocessing /nondecision time)
+# Varies by subject
+tsd ~ dgamma(5, 20)
+ttau <- pow(vsd, -2)
+for (c2 in 1:3) {
+    tmu[c2] ~ dnorm(.3, 1)T(0,3)
+    for (sub in 1:nsubs) {
+       t[c2,sub] ~ dnorm(tmu[c2], ttau)
+    }
+}
+
+# Effect on s (diffusion coefficient)
+# Varies by subject
+ssd ~ dgamma(5, 20)
+stau <- pow(ssd, -2)
+for (c2 in 1:3) {
+    smu[c2] ~ dnorm(.6, 1/4)T(0,4)
+    for (sub in 1:nsubs) {
+       s[c2,sub] ~ dnorm(smu[c2], stau)
+    }
+}
+
+# Effect on v (drift rate)
+# Varies by subject
+vsd ~ dgamma(5, 5)
+vtau <- pow(vsd, -2)
+for (c2 in 1:3) {
+    vmu[c2] ~ dnorm(1.5, 1/16)T(-9,9)
+    for (sub in 1:nsubs) {
+       v[c2,sub] ~ dnorm(vmu[c2], vtau)
+    }
+}
+
+# Likelihood
+for (i in 1:n)
+{
+
+    y[i] ~ dwiener(1/s[noise[i],subject[i]], t[noise[i],subject[i]], 0.5, v[noise[i],subject[i]]/s[noise[i],subject[i]])
+}
+}
