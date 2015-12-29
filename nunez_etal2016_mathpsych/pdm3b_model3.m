@@ -1,9 +1,9 @@
-function pdm3b_model3(inputfile,eegfields,varargin)
+function pdm3b_model3(inputfile,rmtrials,eegfields,varargin)
 %PDM3B_MODEL3 - Runs a new JAGS Model Type 3 with EEG inputs
 %
 %load jagsins.mat to see structure
 %
-%Usage: pdm3b_model3('jagsins.mat',eegfields);
+%Usage: pdm3b_model3('jagsins.mat',rmtrials,eegfields);
 %
 %
 %Inputs:
@@ -66,14 +66,11 @@ for t=1:length(eegfields)
     defaulttsv{t} = [1 1 1];
 end
 
-% Optional inputs
-tsv = defaulttsv;
 modelname = timestr;
-rmtrials = [];
 cleanup = true;
-nsamples = 1000;
-nburnin = 1000;
-nchains =3;
+nsamples = 5e3;
+nburnin = 2e3;
+nchains =6;
 verbosity =1;
 parallelit = 1;
 maxcores = 3;

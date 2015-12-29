@@ -1,9 +1,9 @@
-function pdm3b_model1(inputfile,varargin)
+function pdm3b_model1(inputfile,rmtrials,varargin)
 %PDM3B_MODEL1 - Runs a new JAGS model without EEG inputs
 %
 %load jagsins.mat to see structure
 %
-%Usage: pdm3b_model1('jagsins.mat');
+%Usage: pdm3b_model1('jagsins.mat',rmtrials);
 %
 %
 %Inputs:
@@ -60,13 +60,11 @@ rightnow = clock;
 rightnow = num2cell(rightnow)';
 timestr = sprintf('_%i',rightnow{1:5});
 
-% Optional inputs
 modelname = timestr;
-rmtrials = [];
 cleanup = true;
-nsamples = 1000;
-nburnin = 1000;
-nchains =3;
+nsamples = 5e3;
+nburnin = 2e3;
+nchains =6;
 verbosity =1;
 parallelit = 1;
 maxcores = 3;
