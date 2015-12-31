@@ -8,7 +8,7 @@
 %jags-wiener - Wiener distribution functions for JAGS
 %http://sourceforge.net/projects/jags-wiener/
 %
-%DMAT - Diffusion Model Analysis Toolbox
+%DMAT - Diffusion Model Analysis Toolbox (needed function is already included in this repo)
 %https://ppw.kuleuven.be/okp/software/dmat/
 %
 %Trinity
