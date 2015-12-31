@@ -66,6 +66,7 @@ for t=1:length(eegfields)
     defaulttsv{t} = [1 1 1];
 end
 
+tsv = defaulttsv;
 modelname = timestr;
 cleanup = true;
 nsamples = 5e3;
