@@ -58,35 +58,36 @@ function barimage = makebardirec(imagesize,barsize,imagetype,jitter,preload, gra
 %   Date           Programmers               Description of change
 %   ====        =================            =====================
 %  5/20/13      Michael Nunez                    Original code
+%  1/1/16       Michael Nunez       Defaults better reflect stimuli used in experiments              
 
 %% Arguments
 
 switch nargin
     case 0
     imagesize = 600;
-    barsize = 12;
+    barsize = 6;
     imagetype = randsample(1:2,1);
-    jitter = 0;
+    jitter = 60; 
     preload = 0;
     graphit = 1;
     case 1
-    barsize = floor(imagesize/50);
+    barsize = 6;
     imagetype = randsample(1:2,1);
-    jitter = 0;
+    jitter = 60;
     preload = 0;
     graphit = 1;
     case 2
     imagetype = randsample(1:2,1);
-    jitter = 0;
+    jitter = 60;
     preload = 0;
-    graphit = 0;
+    graphit = 1;
     case 3
-    jitter = 0;
+    jitter = 60;
     preload = 0;
-    graphit = 0;
+    graphit = 1;
     case 4
     preload = 0;
-    graphit = 0;
+    graphit = 1;
     case 5
     graphit = 0;
 end
