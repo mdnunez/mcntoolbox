@@ -82,7 +82,7 @@ model = {
     '# Effect on T_er (preprocessing /nondecision time)'
     '# Varies by subject'
     'tsd ~ dgamma(5, 20)' %x=linspace(0, 1, 100); plot(x, gampdf(x, 5, .05))
-    'ttau <- pow(vsd, -2)'
+    'ttau <- pow(tsd, -2)'
     'for (c2 in 1:3) {'  %noise
     '    tmu[c2] ~ dnorm(.3, 1)T(0,3)' %std = 1
     '    for (sub in 1:nsubs) {'  %subject
