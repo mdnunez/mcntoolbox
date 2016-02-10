@@ -25,7 +25,7 @@ model {
 # Effect on T_er (preprocessing /nondecision time)
 # Varies by subject
 tsd ~ dgamma(5, 20)
-ttau <- pow(vsd, -2)
+ttau <- pow(tsd, -2)
 for (c2 in 1:3) {
     tmu[c2] ~ dnorm(.3, 1)T(0,3)
     for (sub in 1:nsubs) {
