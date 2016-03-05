@@ -51,6 +51,8 @@ function pdm3b_model3(inputfile,rmtrials,eegfields,varargin)
 %   Date           Programmers               Description of change
 %   ====        =================            =====================
 %  8/31/15        Michael Nunez                 Original code
+%  3/04/16        Michael Nunez               Added thinning parameter that
+%             exists in the original fits for the paper, but forgotten here
 
 %% Initial
 
@@ -72,6 +74,7 @@ cleanup = true;
 nsamples = 5e3;
 nburnin = 2e3;
 nchains =6;
+thin =10;
 verbosity =1;
 parallelit = 1;
 maxcores = 3;
@@ -279,6 +282,7 @@ tic
     'nsamples', nsamples, ...
     'nburnin', nburnin, ...
     'nchains', nchains, ...
+    'thin',thin,...
     'verbosity', verbosity, ...
     'workingdir','wdir', ...
     'monitorparams', params, ...
