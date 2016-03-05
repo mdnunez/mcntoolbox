@@ -70,7 +70,7 @@ end
 pdm3b_model1('jagsins.mat',splitdata1);
 
 pdm3b_model2('jagsins.mat',splitdata1,...
-    {'p200trialerp_c1n' 'p200trialerplat_c1n' 'n200trialerp_c1r' 'n200trialerplat_c1r'});
+   {'p200trialerp_c1n' 'p200trialerplat_c1n' 'n200trialerp_c1r' 'n200trialerplat_c1r'});
 
 pdm3b_model3('jagsins.mat',splitdata1,...
-    {'p200trialerp_c1n' 'p200trialerplat_c1n' 'n200trialerp_c1r' 'n200trialerplat_c1r'});
+   {'p200trialerp_c1n' 'p200trialerplat_c1n' 'n200trialerp_c1r' 'n200trialerplat_c1r'});

@@ -50,6 +50,8 @@ function pdm3b_model1(inputfile,rmtrials,varargin)
 %   Date           Programmers               Description of change
 %   ====        =================            =====================
 %  8/26/15        Michael Nunez                 Original code
+%  3/04/16        Michael Nunez               Added thinning parameter that
+%             exists in the original fits for the paper, but forgotten here
 
 %% Initial
 
@@ -64,6 +66,7 @@ modelname = timestr;
 cleanup = true;
 nsamples = 5e3;
 nburnin = 2e3;
+thin = 10;
 nchains =6;
 verbosity =1;
 parallelit = 1;
@@ -195,6 +198,7 @@ tic
     'nsamples', nsamples, ...
     'nburnin', nburnin, ...
     'nchains', nchains, ...
+    'thin',thin,...
     'verbosity', verbosity, ...
     'workingdir','wdir', ...
     'monitorparams', params, ...
