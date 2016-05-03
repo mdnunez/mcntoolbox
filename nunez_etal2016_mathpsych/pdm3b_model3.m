@@ -54,7 +54,7 @@ function pdm3b_model3(inputfile,rmtrials,eegfields,varargin)
 %  8/31/15        Michael Nunez                 Original code
 %  3/04/16        Michael Nunez               Added thinning parameter that
 %             exists in the original fits for the paper, but forgotten here
-%  4/03/16        Michael Nunez      Works with the new version of Trinity
+%  5/03/16        Michael Nunez      Works with the new version of Trinity
 
 %% Initial
 
