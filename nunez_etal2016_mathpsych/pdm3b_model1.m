@@ -26,7 +26,8 @@ function pdm3b_model1(inputfile,rmtrials,varargin)
 %Trinity
 %https://github.com/joachimvandekerckhove/trinity
 %
-%Others?
+%GNU Parallel (Optional):
+%https://www.gnu.org/software/parallel/
 
 %% Citation
 % Nunez M.D., Vandekerchove, J., Srinivasan, R. (2016) How attention influences perceptual decision making: Single-trial EEG correlates of drift-diffusion model parameters. Journal of Mathematical Psychology.
@@ -52,6 +53,7 @@ function pdm3b_model1(inputfile,rmtrials,varargin)
 %  8/26/15        Michael Nunez                 Original code
 %  3/04/16        Michael Nunez               Added thinning parameter that
 %             exists in the original fits for the paper, but forgotten here
+%  4/03/16        Michael Nunez      Works with the new version of Trinity
 
 %% Initial
 
@@ -63,13 +65,12 @@ rightnow = num2cell(rightnow)';
 timestr = sprintf('_%i',rightnow{1:5});
 
 modelname = timestr;
-cleanup = true;
 nsamples = 5e3;
 nburnin = 2e3;
 thin = 10;
 nchains =6;
 verbosity =1;
-parallelit = 1;
+parallelit = 0; %Set this to 1 if GNU Parallel is installed
 maxcores = 3;
 modules = {'wiener' 'dic'};
 
@@ -82,7 +83,7 @@ model = {
     '# Boundary separation kept constant'
     '# a <- 1'
     ''
-    '# Effect on T_er (preprocessing /nondecision time)'
+    '# Effect on Ter (preprocessing /nondecision time)'
     '# Varies by subject'
     'tsd ~ dgamma(5, 20)' %x=linspace(0, 1, 100); plot(x, gampdf(x, 5, .05))
     'ttau <- pow(tsd, -2)'
@@ -194,7 +195,6 @@ tic
 [stats, chains, diagnostics, info] = callbayes('jags', ...
     'model', model, ...
     'data', S, ...
-    'cleanup', cleanup, ...
     'nsamples', nsamples, ...
     'nburnin', nburnin, ...
     'nchains', nchains, ...
