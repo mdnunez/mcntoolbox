@@ -37,7 +37,7 @@ function barimage = makebardirec(imagesize,barsize,imagetype,jitter,preload, gra
 
 %% Possible Citations
 % Nunez, M. D., Srinivasan, R., & Vandekerckhove, J. (2015). Individual differences in attention influence perceptual decision making. Frontiers in psychology, 8.
-% Nunez M.D., Vandekerchove, J., Srinivasan, R. (2016) How attention influences perceptual decision making: Single-trial EEG correlates of drift-diffusion model parameters. Journal of Mathematical Psychology.
+% Nunez, M. D., Vandekerckhove, J., & Srinivasan, R. (2017) How attention influences perceptual decision making: Single-trial EEG correlates of drift-diffusion model parameters. Journal of Mathematical Psychology, 76, 117-130.
 
 %% Copyright 2015 Michael D. Nunez
 

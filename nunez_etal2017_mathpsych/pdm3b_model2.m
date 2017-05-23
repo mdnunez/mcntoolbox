@@ -1,9 +1,9 @@
-function pdm3b_model3(inputfile,rmtrials,eegfields,varargin)
-%PDM3B_MODEL3 - Runs a new JAGS Model Type 3 with EEG inputs
+function pdm3b_model2(inputfile,rmtrials,eegfields,varargin)
+%PDM3B_MODEL2 - Runs a new JAGS Model Type 2 with EEG inputs
 %
 %load jagsins.mat to see structure
 %
-%Usage: pdm3b_model3('jagsins.mat',rmtrials,eegfields);
+%Usage: pdm3b_model2('jagsins.mat',rmtrials,eegfields);
 %
 %
 %Inputs:
@@ -31,7 +31,7 @@ function pdm3b_model3(inputfile,rmtrials,eegfields,varargin)
 %https://www.gnu.org/software/parallel/
 
 %% Citation
-% Nunez M.D., Vandekerchove, J., Srinivasan, R. (2016) How attention influences perceptual decision making: Single-trial EEG correlates of drift-diffusion model parameters. Journal of Mathematical Psychology.
+% Nunez, M. D., Vandekerckhove, J., & Srinivasan, R. (2017) How attention influences perceptual decision making: Single-trial EEG correlates of drift-diffusion model parameters. Journal of Mathematical Psychology, 76, 117-130.
 
 %% Copyright 2015 Michael D. Nunez
 
@@ -75,11 +75,12 @@ modelname = timestr;
 nsamples = 5e3;
 nburnin = 2e3;
 nchains =6;
-thin =10;
+thin = 10;
 verbosity =1;
 parallelit = 0; %Set this to 1 if GNU Parallel is installed
 maxcores = 3;
 modules = {'wiener' 'dic'};
+
 
 %% JAGS code for the diffusion model
 
@@ -132,27 +133,15 @@ model = {
     '   }'
     '}'
     ''
-    '# 1 unit increase of eegfield{f} is associated with this additive effect on s'
-    sprintf('for (f in 1:%i) {',size(tarray,2))
-    'sbetasd[f] ~ dgamma(5, .2)' % x=linspace(0, 100, 100); plot(x, gampdf(x, 5, 5))
-    'sbetatau[f] <- pow(sbetasd[f], -2)'
-    '   for (c2 in 1:3) {' %noise
-    '      sbetamu[c2,f] ~ dnorm(0,.0001)' %std = 100
-    '      for (sub in 1:nsubs) {'  
-    '         sbeta[c2,sub,f] ~ dnorm(sbetamu[c2,f],sbetatau[f])' %std = 100, These should be drawn from a EEG parameter specific distribution with some std parameter
-    '      }'
-    '    }'
-    '}'
-    ''
     '# Effect on s (diffusion coefficient)'
     '# Varies by subject'
-    'ssd ~ dgamma(5, .2)' % x=linspace(0, 100, 100); plot(x, gampdf(x, 5, 5))
+    'ssd ~ dgamma(5, 20)' % x=linspace(0, 1, 100); plot(x, gampdf(x, 5, .05))
     'stau <- pow(ssd, -2)'
-    'for (c2 in 1:3) {' %noise
-    '   smu[c2] ~ dnorm(0,.0001)' %std = 100
-    '   for (sub in 1:nsubs) {'  
-    '      salpha[c2,sub] ~ dnorm(smu[c2], stau)'
-    '   }'
+    'for (c2 in 1:3) {'  %noise
+    '    smu[c2] ~ dnorm(.6, 1/4)T(0,4)' %std = 2
+    '    for (sub in 1:nsubs) {'  %subject
+    '       s[c2,sub] ~ dnorm(smu[c2], stau)'
+    '    }'
     '}'
     ''
     '# 1 unit increase of eegfield{f} is associated with this additive effect on v'
@@ -187,18 +176,14 @@ model = {
     ''
     sprintf('t[i] <- talpha[noise[i],subject[i]]%s',sprintf(' + %s*tbeta[noise[i],subject[i],%i]',sarray{:}))
     ''
-    ''
-    sprintf('s[i] <- salpha[noise[i],subject[i]]%s',sprintf(' + %s*sbeta[noise[i],subject[i],%i]',sarray{:}))
-    ''
-    '    y[i] ~ dwiener(1/s[i], t[i], 0.5, v[i]/s[i])'
+    '    y[i] ~ dwiener(1/s[noise[i],subject[i]], t[i], 0.5, v[i]/s[noise[i],subject[i]])'
     '}'
     '}'
     };
 
 %% Code for Trinity
 
-params = {'tsd' 'tmu' 'talpha' 'tbeta' 'tbetamu' 'tbetasd' ...
-    'ssd' 'smu' 'salpha' 'sbeta' 'sbetamu' 'sbetasd' ...
+params = {'tsd' 'tmu' 'talpha' 'tbeta' 'tbetamu' 'tbetasd' 'ssd' 'smu' 's' ...
     'vsd' 'vmu' 'valpha' 'vbeta' 'vbetamu' 'vbetasd'};
 
 samprt = data.rt;
@@ -238,8 +223,8 @@ R.jitter = jitter(:);
 R.noise = noise(:);
 
 initstruct = @()struct(...
-    'valpha', randn(3,R.nsubs),'talpha', .1 + rand(3,R.nsubs)*.2, ...
-    'salpha', .5 + rand(3,R.nsubs)*.5);
+    'valpha', randn(3,R.nsubs),'talpha', .1 + rand(3,R.nsubs)*.2);
+
 
 for f=1:numel(eegfields)
     R.(neweegfields{f}) = data.(eegfields{f})(~tremove)';

@@ -1,5 +1,7 @@
 ## Citation
-# Nunez M.D., Vandekerchove, J., Srinivasan, R. (2016) How attention influences perceptual decision making: Single-trial EEG correlates of drift-diffusion model parameters. Journal of Mathematical Psychology.
+# Nunez, M. D., Vandekerckhove, J., & Srinivasan, R. 
+# How attention influences perceptual decision making: Single-trial EEG correlates of drift-diffusion model parameters.
+# Journal of Mathematical Psychology, 76, 117-130. (2017).
 
 ## Copyright 2015 Michael D. Nunez
 
@@ -45,15 +47,27 @@ for (c2 in 1:3) {
    }
 }
 
+# 1 unit increase of eegfield{f} is associated with this additive effect on s
+for (f in 1:4) {
+sbetasd[f] ~ dgamma(5, .2)
+sbetatau[f] <- pow(sbetasd[f], -2)
+   for (c2 in 1:3) {
+      sbetamu[c2,f] ~ dnorm(0,.0001)
+      for (sub in 1:nsubs) {
+         sbeta[c2,sub,f] ~ dnorm(sbetamu[c2,f],sbetatau[f])
+      }
+    }
+}
+
 # Effect on s (diffusion coefficient)
 # Varies by subject
-ssd ~ dgamma(5, 20)
+ssd ~ dgamma(5, .2)
 stau <- pow(ssd, -2)
 for (c2 in 1:3) {
-    smu[c2] ~ dnorm(.6, 1/4)T(0,4)
-    for (sub in 1:nsubs) {
-       s[c2,sub] ~ dnorm(smu[c2], stau)
-    }
+   smu[c2] ~ dnorm(0,.0001)
+   for (sub in 1:nsubs) {
+      salpha[c2,sub] ~ dnorm(smu[c2], stau)
+   }
 }
 
 # 1 unit increase of eegfield{f} is associated with this additive effect on v
@@ -88,6 +102,9 @@ v[i] <- valpha[noise[i],subject[i]] + p200trialerpc1n[i]*vbeta[noise[i],subject[
 
 t[i] <- talpha[noise[i],subject[i]] + p200trialerpc1n[i]*tbeta[noise[i],subject[i],1] + p200trialerplatc1n[i]*tbeta[noise[i],subject[i],2] + n200trialerpc1r[i]*tbeta[noise[i],subject[i],3] + n200trialerplatc1r[i]*tbeta[noise[i],subject[i],4]
 
-    y[i] ~ dwiener(1/s[noise[i],subject[i]], t[i], 0.5, v[i]/s[noise[i],subject[i]])
+
+s[i] <- salpha[noise[i],subject[i]] + p200trialerpc1n[i]*sbeta[noise[i],subject[i],1] + p200trialerplatc1n[i]*sbeta[noise[i],subject[i],2] + n200trialerpc1r[i]*sbeta[noise[i],subject[i],3] + n200trialerplatc1r[i]*sbeta[noise[i],subject[i],4]
+
+    y[i] ~ dwiener(1/s[i], t[i], 0.5, v[i]/s[i])
 }
 }
