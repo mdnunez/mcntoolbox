@@ -1,3 +1,6 @@
+<img src="./extra/small_hnl_logo.png" height="128">
+<img src="./extra/small_cidlab_logo.png" height="128">
+
 # mcntoolbox
 The Mathematical Cognitive Neuroscience Toolbox (mcntoolbox).
 
