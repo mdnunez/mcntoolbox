@@ -3,7 +3,7 @@
 # mcntoolbox
 The Mathematical Cognitive Neuroscience Toolbox (mcntoolbox).
 
-**Authors: Michael D. Nunez, Joachim Vandekerckhove and Ramesh Srinivasan from the Cognitive Sciences Department at the University of California, Irvine**
+**Authors: Michael D. Nunez, Joachim Vandekerckhove, and Ramesh Srinivasan from the Cognitive Sciences Department at the University of California, Irvine**
 
 ### Description ###
 
@@ -15,7 +15,7 @@ As mcntoolbox evolves over time, its purpose may change.
 
 ### License
 
-artscreenEEG is licensed under the GNU General Public License v3.0 and written by Michael D. Nunez, Cort Horton, Siyi Deng, William Winter, Mark Dennison, Jacky Au, and Ramesh Srinivasan from the Human Neuroscience Lab at the University of California, Irvine.
+mcntoolbox is licensed under the GNU General Public License v3.0 and written by Michael D. Nunez, Joachim Vandekerckhove, and Ramesh Srinivasan from the Cognitive Sciences Department at the University of California, Irvine.
 
 ### Further Reading / Citations
 
