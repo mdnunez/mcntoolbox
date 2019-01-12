@@ -7,14 +7,14 @@ Nunez, M. D., Vandekerckhove, J., & Srinivasan, R. (2017).
 Journal of Mathematical Psychology, 76, 117-130.
 
 # mcntoolbox
-#### (Repository version 0.3.0)
+#### (Repository version 0.3.1)
 The Mathematical Cognitive Neuroscience Toolbox (mcntoolbox).
 
 **Authors: Michael D. Nunez, Joachim Vandekerckhove, and Ramesh Srinivasan from the Cognitive Sciences Department at the University of California, Irvine**
 
 ### Description
 
-The main purpose of the mcntoolbox is to provide users interested in cognitive neuroscience and mathematical psychology a set of example scripts for data analysis and experimentation. All example scripts are written in MATLAB. One R script is included as an example of single-trial ERP estimation.
+Mcntoolbox provides users interested in EEG and quick decision making a set of example scripts for steady-state visual evoked potential (SSVEP) stimulus generation and integrated drift-diffusion model fitting with EEG using MATLAB. All example scripts are written in MATLAB. One R script is included as an example of single-trial ERP estimation.
 
 Please see the repository [encodingN200](https://github.com/mdnunez/encodingN200) for cleaner implementations using Python.
 
@@ -36,7 +36,7 @@ Please see the repository [encodingN200](https://github.com/mdnunez/encodingN200
 
 mcntoolbox is licensed under the GNU General Public License v3.0 and written by Michael D. Nunez, Joachim Vandekerckhove, and Ramesh Srinivasan from the Cognitive Sciences Department at the University of California, Irvine.
 
-### Further Reading / Citations
+### Further Reading
 
 Nunez, M. D., Vandekerckhove, J., & Srinivasan, R. (2017).
 [How attention influences perceptual decision making: Single-trial EEG correlates of drift-diffusion model parameters.](https://www.researchgate.net/publication/298275031_How_attention_influences_perceptual_decision_making_Single-trial_EEG_correlates_of_drift-diffusion_model_parameters)
