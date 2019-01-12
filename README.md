@@ -1,17 +1,36 @@
 <img src="./extra/small_hnl_logo.png" height="128"> <img src="./extra/small_cidlab_logo.png" height="128">
 
+### Citation
+
+Nunez, M. D., Vandekerckhove, J., & Srinivasan, R. (2017).
+[How attention influences perceptual decision making: Single-trial EEG correlates of drift-diffusion model parameters.](https://www.researchgate.net/publication/298275031_How_attention_influences_perceptual_decision_making_Single-trial_EEG_correlates_of_drift-diffusion_model_parameters)
+Journal of Mathematical Psychology, 76, 117-130.
+
 # mcntoolbox
+#### (Repository version 0.3.0)
 The Mathematical Cognitive Neuroscience Toolbox (mcntoolbox).
 
 **Authors: Michael D. Nunez, Joachim Vandekerckhove, and Ramesh Srinivasan from the Cognitive Sciences Department at the University of California, Irvine**
 
-### Description ###
+### Description
 
-The current purpose of the mcntoolbox is to provide users interested in cognitive neuroscience and mathematical psychology a set of example scripts for data analysis and experimentation.
+The main purpose of the mcntoolbox is to provide users interested in cognitive neuroscience and mathematical psychology a set of example scripts for data analysis and experimentation. All example scripts are written in MATLAB. One R script is included as an example of single-trial ERP estimation.
 
-Currently, most of the example scripts will be written in MATLAB. However R code is also included and Python code will be included in the future.
+Please see the repository [encodingN200](https://github.com/mdnunez/encodingN200) for cleaner implementations using Python.
 
-As mcntoolbox evolves over time, its purpose may change.
+### Prerequisites
+
+[MATLAB](https://www.mathworks.com/)
+
+[MCMC Sampling Program: JAGS](http://mcmc-jags.sourceforge.net/)
+
+[Program: JAGS Wiener module](https://sourceforge.net/projects/jags-wiener/)
+
+### Possible prerequisites
+
+[DMAT](https://ppw.kuleuven.be/okp/software/dmat/) ( Now unnecessary but was previously necessary for the exponential moving average function ewmav2() in previous versions )
+
+[R](https://www.r-project.org/) (for single-trial ERP estimation)
 
 ### License
 
