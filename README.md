@@ -7,7 +7,7 @@ Nunez, M. D., Vandekerckhove, J., & Srinivasan, R. (2017).
 Journal of Mathematical Psychology, 76, 117-130.
 
 # mcntoolbox
-#### (Repository version 0.3.1)
+#### (Repository version 0.3.2)
 The Mathematical Cognitive Neuroscience Toolbox (mcntoolbox).
 
 **Authors: Michael D. Nunez, Joachim Vandekerckhove, and Ramesh Srinivasan from the Cognitive Sciences Department at the University of California, Irvine**
@@ -17,6 +17,10 @@ The Mathematical Cognitive Neuroscience Toolbox (mcntoolbox).
 Mcntoolbox provides users interested in EEG and quick decision making a set of example scripts for steady-state visual evoked potential (SSVEP) stimulus generation and integrated drift-diffusion model fitting with EEG using MATLAB. All example scripts are written in MATLAB. One R script is included as an example of single-trial ERP estimation.
 
 Please see the repository [encodingN200](https://github.com/mdnunez/encodingN200) for cleaner implementations using Python.
+
+### Data
+
+The shortcut to the pre-calculated EEG measures and raw behavioral data presented in Nunez et al. (2017) JMP paper is [here](https://github.com/mdnunez/mcntoolbox/raw/master/nunez_etal2017_mathpsych/jagsins.mat).
 
 ### Prerequisites
 
