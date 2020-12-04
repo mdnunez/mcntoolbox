@@ -20,7 +20,7 @@ The Mathematical Cognitive Neuroscience Toolbox (mcntoolbox).
 
 Mcntoolbox provides users interested in EEG and quick decision making a set of example scripts for steady-state visual evoked potential (SSVEP) stimulus generation and integrated drift-diffusion model fitting with EEG using MATLAB. All example scripts are written in MATLAB. One R script is included as an example of single-trial ERP estimation.
 
-Please see the repository [encodingN200](https://github.com/mdnunez/encodingN200) for cleaner implementations using Python.
+Please see the repository [pyhddmjags](https://github.com/mdnunez/pyhddmjags) for cleaner implementations using Python.
 
 ### Data
 
