@@ -11,7 +11,7 @@ Journal of Mathematical Psychology, 76, 117-130.
 [Elsevier source](https://www.sciencedirect.com/science/article/abs/pii/S0022249616000316)
 
 # mcntoolbox
-#### (Repository version 0.3.3)
+#### (Repository version 0.3.4)
 The Mathematical Cognitive Neuroscience Toolbox (mcntoolbox).
 
 **Authors: Michael D. Nunez, Joachim Vandekerckhove, and Ramesh Srinivasan from the Cognitive Sciences Department at the University of California, Irvine**
